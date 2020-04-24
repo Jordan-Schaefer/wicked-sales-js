@@ -9,3 +9,12 @@
 .fa-dollar-sign {
   color: white;
 }
+
+.card-width {
+  min-width: 300px;
+  margin: 3%;
+}
+
+.img-container {
+  height: 400px;
+}

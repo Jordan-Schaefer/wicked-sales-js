@@ -1,18 +1,32 @@
 import React from 'react';
 
-class ProductListItem extends React.Component {
-  render() {
-    return (
-      <>
-        <div>
-          <img src="" alt=""/>
-          <h4></h4>
-          <h5></h5>
-          <h5></h5>
-        </div>
-      </>
-    );
+function convertCash(num) {
+  const str = num + '';
+  let money = '';
+  for (let i = 0; i < str.length; i++) {
+    if (i === str.length - 2) {
+      money += '.';
+    }
+    money += str[i];
   }
+  return money;
+}
+
+function ProductListItem(props) {
+  const cost = props.card.price;
+  return (
+    <>
+      <div className='card col-lg card-width align-itmes-end'>
+        <div className='img-container'>
+          <img className='img-fluid' src={props.card.image} alt={props.card.name} />
+        </div>
+
+        <h4 className='card-title'>{props.card.name}</h4>
+        <h5 className='card-body'>${convertCash(cost)}</h5>
+        <p className='card-text'>{props.card.shortDescription}</p>
+      </div>
+    </>
+  );
 }
 
 export default ProductListItem;
