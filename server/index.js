@@ -41,9 +41,9 @@ app.get('/api/products', (req, res, next) => {
 
 app.get('/api/products/:productId', (req, res, next) => {
   const { productId } = req.params;
-  parseInt(productId);
+  const productNum = parseInt(productId);
 
-  if (productId <= 0) {
+  if (productNum <= 0) {
     return res.status(404).json({ error: 'productId must be a positive integer' });
   }
 
@@ -52,17 +52,16 @@ app.get('/api/products/:productId', (req, res, next) => {
     from "products"
    where "productId" = $1
   `;
-  const values = [`${productId}`];
+  const values = [`${productNum}`];
 
   db.query(sql, values)
     .then(response => {
       if (!response.rows[0]) {
-        res.status(404).json({ error: `cannot find productId of ${productId}` });
+        return res.status(404).json({ error: `cannot find productId of ${productNum}` });
       }
       res.status(200).json(response.rows[0]);
     })
     .catch(err => next(err));
-
 });
 
 app.use('/api', (req, res, next) => {
