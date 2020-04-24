@@ -13,9 +13,7 @@ class ProductList extends React.Component {
 
   getProducts() {
     fetch('/api/products')
-      .then(response => {
-        return response.json();
-      })
+      .then(response => response.json())
       .then(data => {
         this.setState({ products: data });
       })
@@ -25,13 +23,17 @@ class ProductList extends React.Component {
   render() {
     return (
       <div className='container d-flex flex-wrap justify-content-between'>
-
         {
           this.state.products.map(item => {
-            return <ProductListItem key={item.productId} card={item} />;
+            return (
+              <div
+                onClick={() => this.props.view('details', item.productId)}
+                key={item.productId} className='card col-lg card-width align-itmes-end'>
+                <ProductListItem card={item} />
+              </div>
+            );
           })
         }
-
       </div>
     );
   }
