@@ -36,6 +36,33 @@ app.get('/api/products', (req, res, next) => {
       console.error(err);
       res.status(500).json({ error: 'an error hs occurred' });
     });
+
+});
+
+app.get('/api/products/:productId', (req, res, next) => {
+  const { productId } = req.params;
+  parseInt(productId);
+
+  if (productId <= 0) {
+    return res.status(404).json({ error: 'productId must be a positive integer' });
+  }
+
+  const sql = `
+  select *
+    from "products"
+   where "productId" = $1
+  `;
+  const values = [`${productId}`];
+
+  db.query(sql, values)
+    .then(response => {
+      if (!response.rows[0]) {
+        res.status(404).json({ error: `cannot find productId of ${productId}` });
+      }
+      res.status(200).json(response.rows[0]);
+    })
+    .catch(err => next(err));
+
 });
 
 app.use('/api', (req, res, next) => {
