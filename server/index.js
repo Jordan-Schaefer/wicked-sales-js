@@ -64,6 +64,86 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/cart', (req, res, next) => {
+  const sql = `
+  select *
+    from "carts"
+  `;
+  db.query(sql)
+    .then(response => {
+      res.status(200).json(response.rows);
+    })
+    .catch(err => next(err));
+});
+
+app.post('/api/cart/:productId', (req, res, next) => {
+  const { productId } = req.params;
+
+  if (productId <= 0) {
+    return res.status(400).json({ error: 'productId must be a positive integer' });
+  }
+
+  const sqlInsert = `
+  insert into "carts" ("cartId", "createdAt")
+  values (default, default)
+  returning "cartId"
+  `;
+  const sql = `
+  select "price"
+    from "products"
+   where "productId" = $1
+  `;
+  const values = [`${productId}`];
+
+  db.query(sql, values)
+    .then(response => {
+      if (!response.rows[0]) {
+        return res.status(400).json({ error: `productId ${productId} does not match any existing products` });
+      } else {
+        return db.query(sqlInsert)
+          .then(id => {
+            return {
+              cartId: id.rows[0].cartId,
+              price: response.rows[0].price
+            };
+          })
+          .catch(err => next(err));
+      }
+    })
+    .then(newId => {
+      req.session.cartId = newId.cartId;
+      const sqlCartItemId = `
+      insert into "cartItems" ("cartId", "productId", "price")
+      values ($1, $2, $3)
+      returning "cartItemId"
+      `;
+      const cartValues = [`${newId.cartId}`, `${productId}`, `${newId.price}`];
+      return db.query(sqlCartItemId, cartValues)
+        .then(response => response);
+    })
+    .then(data => {
+
+      const selectItems = `
+      select "c"."cartItemId",
+             "c"."price",
+             "p"."productId",
+             "p"."image",
+             "p"."name",
+             "p"."shortDescription"
+        from "cartItems" as "c"
+        join "products" as "p" using ("productId")
+       where "c"."cartItemId" = $1
+      `;
+      const newCartItemId = [`${data.rows[0].cartItemId}`];
+      return db.query(selectItems, newCartItemId)
+        .then(info => {
+          res.status(201).json(info.rows[0]);
+        })
+        .catch(err => next(err));
+    })
+    .catch(err => next(err));
+});
+
 app.use('/api', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
