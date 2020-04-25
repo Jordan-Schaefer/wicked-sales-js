@@ -4,6 +4,29 @@ import CartSummaryItem from './cart-summary-item';
 
 class CartSummary extends React.Component {
 
+  convertCash(num) {
+    const str = num + '';
+    let money = '';
+    for (let i = 0; i < str.length; i++) {
+      if (i === str.length - 2) {
+        money += '.';
+      } else if (i === str.length - 5) {
+        money += ',';
+      }
+      money += str[i];
+    }
+    return money;
+  }
+
+  getTotal() {
+    const eachItem = this.props.items;
+    let price = 0;
+    for (let i = 0; i < eachItem.length; i++) {
+      price += eachItem[i].price;
+    }
+    return this.convertCash(price);
+  }
+
   render() {
     return (
       <>
@@ -17,6 +40,7 @@ class CartSummary extends React.Component {
             return <CartSummaryItem key={item.cartItemId} item={item}/>;
           })
         }
+        <h2 className='container'>Item total ${this.getTotal()}</h2>
       </>
     );
   }
