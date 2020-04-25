@@ -42,17 +42,16 @@ app.get('/api/products', (req, res, next) => {
 app.get('/api/products/:productId', (req, res, next) => {
   const { productId } = req.params;
   const productNum = parseInt(productId);
-
-  if (productNum <= 0) {
-    return res.status(404).json({ error: 'productId must be a positive integer' });
-  }
-
+  const values = [`${productNum}`];
   const sql = `
   select *
     from "products"
    where "productId" = $1
   `;
-  const values = [`${productNum}`];
+
+  if (productNum <= 0) {
+    return res.status(404).json({ error: 'productId must be a positive integer' });
+  }
 
   db.query(sql, values)
     .then(response => {
@@ -90,11 +89,6 @@ app.get('/api/cart', (req, res, next) => {
 
 app.post('/api/cart/:productId', (req, res, next) => {
   const { productId } = req.params;
-
-  if (productId <= 0) {
-    return res.status(400).json({ error: 'productId must be a positive integer' });
-  }
-
   const sqlInsert = `
   insert into "carts" ("cartId", "createdAt")
   values (default, default)
@@ -106,7 +100,11 @@ app.post('/api/cart/:productId', (req, res, next) => {
    where "productId" = $1
   `;
   const values = [`${productId}`];
-  // first chain
+
+  if (productId <= 0) {
+    return res.status(400).json({ error: 'productId must be a positive integer' });
+  }
+
   db.query(sql, values)
     .then(response => {
 
@@ -140,9 +138,8 @@ app.post('/api/cart/:productId', (req, res, next) => {
       return db.query(sqlCartItemId, cartValues)
         .then(response => response);
     })
-  // thid chain
-    .then(data => {
 
+    .then(data => {
       const selectItems = `
       select "c"."cartItemId",
              "c"."price",
