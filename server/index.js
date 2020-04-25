@@ -84,9 +84,8 @@ app.get('/api/cart', (req, res, next) => {
       })
       .catch(err => next(err));
   } else {
-    return [];
+    res.status(200).json({ empty: [] });
   }
-
 });
 
 app.post('/api/cart/:productId', (req, res, next) => {
@@ -112,7 +111,7 @@ app.post('/api/cart/:productId', (req, res, next) => {
     .then(response => {
 
       if (!response.rows[0]) {
-        return res.status(400).json({ error: `productId ${productId} does not match any existing products` });
+        throw new ClientError('must create an account', 400);
       } else if (req.session.cartId) {
         return {
           cartId: req.session.cartId,
