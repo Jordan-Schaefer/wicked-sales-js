@@ -40,19 +40,18 @@ class ProductDetails extends React.Component {
     } else {
       return (
         <>
-          <div className='container card marg'>
+          <div className='container card marg-top'>
             <a onClick={() => this.props.view('catalog', {})} href="">&#60; Back to catalog</a>
             <div className='d-flex'>
-
               <div>
                 <img className='img-fluid' src={items.image} alt={items.name} />
               </div>
-              <div>
+              <div className='marg'>
                 <h1>{items.name}</h1>
                 <h5>${this.convertCash(items.price)}</h5>
                 <h5>{items.shortDescription}</h5>
+                <button onClick={() => this.props.addToCart(items.productId)} className='btn btn-primary'>Add to Cart</button>
               </div>
-
             </div>
             <p>{items.longDescription}</p>
           </div>
