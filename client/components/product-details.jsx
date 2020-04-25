@@ -40,13 +40,13 @@ class ProductDetails extends React.Component {
     } else {
       return (
         <>
-          <div className='container card marg-top'>
+          <div className='container card mt-3'>
             <a onClick={() => this.props.view('catalog', {})} href="">&#60; Back to catalog</a>
             <div className='d-flex'>
               <div>
                 <img className='img-fluid' src={items.image} alt={items.name} />
               </div>
-              <div className='marg'>
+              <div className='m-2'>
                 <h1>{items.name}</h1>
                 <h5>${this.convertCash(items.price)}</h5>
                 <h5>{items.shortDescription}</h5>
