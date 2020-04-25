@@ -28,7 +28,8 @@ class ProductList extends React.Component {
             return (
               <div
                 onClick={() => this.props.view('details', item.productId)}
-                key={item.productId} className='card col-lg card-width align-itmes-end'>
+                key={item.productId}
+                className='card col-lg card-width align-itmes-end'>
                 <ProductListItem card={item} />
               </div>
             );
