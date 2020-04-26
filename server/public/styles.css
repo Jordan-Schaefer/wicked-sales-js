@@ -14,3 +14,11 @@
 .img-container {
   height: 400px;
 }
+
+.img-thumb {
+  max-width: 200px;
+}
+
+.cart {
+  cursor: pointer;
+}

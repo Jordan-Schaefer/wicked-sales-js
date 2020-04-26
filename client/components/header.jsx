@@ -9,7 +9,7 @@ class Header extends React.Component {
           <i className="fas fa-dollar-sign text-white"></i>
           <h3 className='head'>Wicked Sales</h3>
         </div>
-        <div className='d-flex'>
+        <div className='d-flex cart' onClick={() => this.props.view('cart', {})}>
           <h6 className='text-white'>{this.props.cart} items </h6>
           <i className="fas fa-shopping-cart text-white"></i>
         </div>
