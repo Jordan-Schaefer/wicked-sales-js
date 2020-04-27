@@ -104,7 +104,6 @@ app.post('/api/cart/:productId', (req, res, next) => {
   if (productId <= 0) {
     return res.status(400).json({ error: 'productId must be a positive integer' });
   }
-
   db.query(sql, values)
     .then(response => {
 
@@ -126,7 +125,6 @@ app.post('/api/cart/:productId', (req, res, next) => {
           .catch(err => next(err));
       }
     })
-  // second chain
     .then(newId => {
       req.session.cartId = newId.cartId;
       const sqlCartItemId = `
@@ -138,7 +136,6 @@ app.post('/api/cart/:productId', (req, res, next) => {
       return db.query(sqlCartItemId, cartValues)
         .then(response => response);
     })
-
     .then(data => {
       const selectItems = `
       select "c"."cartItemId",
@@ -159,6 +156,29 @@ app.post('/api/cart/:productId', (req, res, next) => {
         .catch(err => next(err));
     })
     .catch(err => next(err));
+});
+
+app.post('/api/orders', (req, res, next) => {
+  const { name, creditCard, shippingAddress } = req.body;
+  if (!req.session.cartId) {
+    return res.status(400).json({ error: 'must have cart id' });
+  } else if (!name || !creditCard || !shippingAddress) {
+    return res.status(400).json({ error: 'name creditCard and shippingAddress are required fields' });
+  } else {
+    const sql = `
+    insert into "orders" ("cartId", "name", "creditCard", "shippingAddress")
+    values ($1, $2, $3, $4)
+    returning "orderId", "createdAt", "name", "creditCard", "shippingAddress";
+    `;
+    const values = [`${req.session.cartId}`, `${name}`, `${creditCard}`, `${shippingAddress}`];
+
+    db.query(sql, values)
+      .then(response => {
+        res.status(201).json(response.rows[0]);
+        delete req.session.cartId;
+      })
+      .catch(err => next(err));
+  }
 });
 
 app.use('/api', (req, res, next) => {
