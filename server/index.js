@@ -174,14 +174,10 @@ app.post('/api/orders', (req, res, next) => {
 
     db.query(sql, values)
       .then(response => {
-
-        if (!response.rows) {
-          next(response);
-        } else {
-          res.status(201).json(response.rows[0]);
-          delete req.session.cartId;
-        }
-      });
+        res.status(201).json(response.rows[0]);
+        delete req.session.cartId;
+      })
+      .catch(err => next(err));
   }
 });
 
