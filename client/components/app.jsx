@@ -1,8 +1,10 @@
 import React from 'react';
-import Header from './header';
-import ProductList from './product-list';
-import ProductDetails from './product-details';
-import CartSummary from './cart-summary';
+// import Header from './header';
+// import ProductList from './product-list';
+// import ProductDetails from './product-details';
+// import CartSummary from './cart-summary';
+import CheckoutForm from './checkout-form';
+// import CartSummaryItem from './cart-summary-item';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -56,27 +58,43 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
+  placeOrder(order) {
+    fetch(`/api/orders ${order}`, { method: 'POST' })
+      .then(res => res.json())
+      .catch(err => console.error(err));
+    this.setState({
+      view: {
+        name: 'catalog',
+        params: {}
+      },
+      cart: []
+    });
+  }
+
   render() {
-    const itemCount = this.state.cart.length;
-    if (this.state.view.name === 'catalog') {
-      return (
-        <>
-          <Header view={this.setView} cart={itemCount}/>
-          <ProductList view={this.setView} />
-        </>
-      );
-    } else if (this.state.view.name === 'details') {
-      return (
-        <>
-          <Header view={this.setView} cart={itemCount}/>
-          <ProductDetails
-            view={this.setView}
-            params={this.state.view.params}
-            addToCart={this.addToCart}/>
-        </>
-      );
-    } else if (this.state.view.name === 'cart') {
-      return <CartSummary items={this.state.cart} view={this.setView} />;
-    }
+    // const itemCount = this.state.cart.length;
+    // if (this.state.view.name === 'catalog') {
+    //   return (
+    //     <>
+    //       <Header view={this.setView} cart={itemCount}/>
+    //       <ProductList view={this.setView} />
+    //     </>
+    //   );
+    // } else if (this.state.view.name === 'details') {
+    //   return (
+    //     <>
+    //       <Header view={this.setView} cart={itemCount}/>
+    //       <ProductDetails
+    //         view={this.setView}
+    //         params={this.state.view.params}
+    //         addToCart={this.addToCart}/>
+    //     </>
+    //   );
+    // } else if (this.state.view.name === 'cart') {
+    //   return <CartSummary items={this.state.cart} view={this.setView} />;
+    // }
+    return (
+      <CheckoutForm />
+    );
   }
 }
