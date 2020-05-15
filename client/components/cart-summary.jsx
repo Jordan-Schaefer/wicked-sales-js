@@ -51,6 +51,7 @@ class CartSummary extends React.Component {
               return <CartSummaryItem key={item.cartItemId} item={item} />;
             })
           }
+          <button onClick={this.props.view('checkout', {})}>Check out</button>
           <h2 className='container'>Item total ${this.getTotal()}</h2>
         </>
       );
