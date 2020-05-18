@@ -56,6 +56,7 @@ export default class App extends React.Component {
         this.setState({ cart: cartItems });
       })
       .catch(err => console.error(err));
+    this.setView('catalog', {});
   }
 
   placeOrder(order, event) {
@@ -81,14 +82,19 @@ export default class App extends React.Component {
     if (this.state.view.name === 'catalog') {
       return (
         <>
-          <Header view={this.setView} cart={itemCount}/>
-          <ProductList view={this.setView} />
+          <Header
+            view={this.setView}
+            cart={itemCount}/>
+          <ProductList
+            view={this.setView} />
         </>
       );
     } else if (this.state.view.name === 'details') {
       return (
         <>
-          <Header view={this.setView} cart={itemCount}/>
+          <Header
+            view={this.setView}
+            cart={itemCount}/>
           <ProductDetails
             view={this.setView}
             params={this.state.view.params}
@@ -97,9 +103,14 @@ export default class App extends React.Component {
       );
     } else if (this.state.view.name === 'cart') {
       return (
-        <CartSummary
-          items={this.state.cart}
-          view={this.setView} />
+        <>
+          <Header
+            view={this.setView}
+            cart={itemCount} />
+          <CartSummary
+            items={this.state.cart}
+            view={this.setView} />
+        </>
       );
     } else if (this.state.view.name === 'checkout') {
       return (
@@ -107,7 +118,9 @@ export default class App extends React.Component {
           <Header
             view={this.setView}
             cart={itemCount}/>
-          <CheckoutForm placeOrder={this.placeOrder}/>
+          <CheckoutForm
+            placeOrder={this.placeOrder}
+            view={this.setView}/>
         </>
 
       );

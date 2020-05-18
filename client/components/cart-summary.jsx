@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './header';
 import CartSummaryItem from './cart-summary-item';
 
 class CartSummary extends React.Component {
@@ -31,7 +30,6 @@ class CartSummary extends React.Component {
     if (this.props.items.length === 0) {
       return (
         <>
-          <Header />
           <div className='container'>
             <a onClick={() => this.props.view('catalog', {})} href="">&#60; Bact to catalog</a>
             <h1>There are no items in your cart</h1>
@@ -41,7 +39,6 @@ class CartSummary extends React.Component {
     } else {
       return (
         <>
-          <Header />
           <div className='container'>
             <a onClick={() => this.props.view('catalog', {})} href="">&#60; Bact to catalog</a>
             <h4>My cart</h4>
@@ -51,8 +48,11 @@ class CartSummary extends React.Component {
               return <CartSummaryItem key={item.cartItemId} item={item} />;
             })
           }
-          <button onClick={() => this.props.view('checkout', {})}>Check out</button>
-          <h2 className='container'>Item total ${this.getTotal()}</h2>
+          <div className='container'>
+            <button className='btn btn-success' onClick={() => this.props.view('checkout', {})}>Check out</button>
+            <h2>Item total ${this.getTotal()}</h2>
+          </div>
+
         </>
       );
     }
