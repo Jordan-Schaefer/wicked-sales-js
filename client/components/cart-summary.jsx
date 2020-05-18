@@ -27,6 +27,7 @@ class CartSummary extends React.Component {
   }
 
   render() {
+
     if (this.props.items.length === 0) {
       return (
         <>
@@ -48,11 +49,11 @@ class CartSummary extends React.Component {
               return <CartSummaryItem key={item.cartItemId} item={item} />;
             })
           }
+
           <div className='container'>
             <button className='btn btn-success' onClick={() => this.props.view('checkout', {})}>Check out</button>
             <h2>Item total ${this.getTotal()}</h2>
           </div>
-
         </>
       );
     }
