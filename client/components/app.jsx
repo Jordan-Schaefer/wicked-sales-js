@@ -4,7 +4,6 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
-// import CartSummaryItem from './cart-summary-item';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -20,6 +19,7 @@ export default class App extends React.Component {
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
   componentDidMount() {
@@ -58,7 +58,8 @@ export default class App extends React.Component {
       .catch(err => console.error(err));
   }
 
-  placeOrder(order) {
+  placeOrder(order, event) {
+    event.preventDefault();
     const params = {
       method: 'POST',
       headers: {
@@ -102,7 +103,13 @@ export default class App extends React.Component {
       );
     } else if (this.state.view.name === 'checkout') {
       return (
-        <CheckoutForm />
+        <>
+          <Header
+            view={this.setView}
+            cart={itemCount}/>
+          <CheckoutForm placeOrder={this.placeOrder}/>
+        </>
+
       );
     }
   }
