@@ -7,9 +7,9 @@ class CartSummary extends React.Component {
     const str = num + '';
     let money = '';
     for (let i = 0; i < str.length; i++) {
-      if (i === str.length - 2) {
+      if (i === str.length - 2 && str.length >= 3) {
         money += '.';
-      } else if (i === str.length - 5) {
+      } else if (i === str.length - 5 && str.length >= 6) {
         money += ',';
       }
       money += str[i];
