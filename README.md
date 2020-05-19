@@ -19,6 +19,9 @@ A full stack Node.js and React shopping cart app.
   - User can view their cart and total cost
   - User can checkout and pay for their items
 
+## Live Demo
+
+  #### Check out the live version here: [wicked-sales](https://wickedsales.jordanleeschaefer.com/)
 
 ## Deployment
 
