@@ -29,16 +29,24 @@ A full stack Node.js and React shopping cart app.
 
   - Node.js 10 or higher
   - NPM 6 or higher
-  - MongoDB 4 or higher
+  - postgreSQL
 
 ### Getting Started
 
   1. Fork this repository
+
   2. Clone the repository
       - `git clone https://github.com/[User Name]/wicked-sales-js`
+      - `cd wicked-sales-js`
+
   3. Install all dependancies
       - `npm install`
+
   4. Import the example database
+      - `npm run db:import`
+
+  5. Start the server
       - `sudo service postgresql start`
+
   5. Start the project. Once it is started you can view the project -by opening [localhost:3000](localhost:3000)
       - `npm run dev`
