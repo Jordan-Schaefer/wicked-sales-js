@@ -22,20 +22,25 @@ class ProductList extends React.Component {
 
   render() {
     return (
-      <div className='container d-flex flex-wrap justify-content-between'>
-        {
-          this.state.products.map(item => {
-            return (
-              <div
-                onClick={() => this.props.view('details', item.productId)}
-                key={item.productId}
-                className='card col-lg card-width align-itmes-end'>
-                <ProductListItem card={item} />
-              </div>
-            );
-          })
-        }
-      </div>
+      <main className='py-5'>
+        <div className='container'>
+          <div className='row'>
+            {
+              this.state.products.map(item => {
+                return (
+                  <div
+                    onClick={() => this.props.view('details', item.productId)}
+                    key={item.productId}
+                    className='col-12 col-md-6 col-lg-4 mb-4'>
+                    <ProductListItem card={item} />
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+      </main>
+
     );
   }
 }
