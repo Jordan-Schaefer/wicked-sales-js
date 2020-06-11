@@ -15,14 +15,15 @@ function convertCash(num) {
 function ProductListItem(props) {
   const cost = props.card.price;
   return (
-    <>
-      <div className='img-container'>
-        <img className='img-fluid' src={props.card.image} alt={props.card.name} />
+    <div className='card card-size on-hover grow'>
+      <img className='card-img-top img-size' src={props.card.image} alt={props.card.name} />
+      <div className='card-body'>
+        <h5 className='card-title'>{props.card.name}</h5>
+        <h6 className='card-subtitle mb-3 text-muted'>${convertCash(cost)}</h6>
+        <p className='card-text'>{props.card.shortDescription}</p>
       </div>
-      <h4 className='card-title'>{props.card.name}</h4>
-      <h5 className='card-body'>${convertCash(cost)}</h5>
-      <p className='card-text'>{props.card.shortDescription}</p>
-    </>
+
+    </div>
   );
 }
 

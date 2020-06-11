@@ -11,8 +11,27 @@
   margin: 3%;
 }
 
-.img-container {
-  height: 400px;
+.card-size {
+  height: 100%;
+}
+
+.img-size {
+  object-fit: contain;
+  height: 280px;
+  padding-top: 20px;
+}
+
+.on-hover:hover {
+  cursor: pointer;
+}
+
+.grow {
+  transition: all .2s ease-in-out;
+}
+
+.grow:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .img-thumb {

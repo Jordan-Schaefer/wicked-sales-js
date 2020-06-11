@@ -52,14 +52,9 @@ export default class App extends React.Component {
       .then(res => res.json())
       .then(item => {
         const cartItems = this.state.cart;
-        if (cartItems.length > 0) {
-          const items = [...cartItems];
-          items.push(item);
-          this.setState({ cart: items });
-        } else {
-          cartItems.push(item);
-          this.setState({ cart: cartItems });
-        }
+        const items = [...cartItems];
+        items.push(item);
+        this.setState({ cart: items });
       })
       .catch(err => console.error(err))
       .finally(() => this.setView('catalog', {}));
