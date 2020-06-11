@@ -41,16 +41,23 @@ class ProductDetails extends React.Component {
       return (
         <>
           <div className='container card mt-3'>
-            <a onClick={() => this.props.view('catalog', {})} href="">&#60; Back to catalog</a>
-            <div className='d-flex'>
+            <a onClick={() => this.props.view('catalog', {})}
+              className='my-2 on-hover'>&#60; Back to catalog</a>
+            <div className='d-flex mb-3'>
               <div>
-                <img className='img-fluid' src={items.image} alt={items.name} />
+                <img
+                  className='img-fluid card-img'
+                  src={items.image}
+                  alt={items.name} />
               </div>
-              <div className='m-2'>
+              <div className='m-3'>
                 <h1>{items.name}</h1>
                 <h5>${this.convertCash(items.price)}</h5>
                 <h5>{items.shortDescription}</h5>
-                <button onClick={() => this.props.addToCart(items.productId)} className='btn btn-primary'>Add to Cart</button>
+                <button onClick={() => this.props.addToCart(items.productId)}
+                  className='btn btn-primary'>
+                  Add to Cart
+                </button>
               </div>
             </div>
             <p>{items.longDescription}</p>
