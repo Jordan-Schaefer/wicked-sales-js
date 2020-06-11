@@ -99,7 +99,7 @@ app.post('/api/cart/:productId', (req, res, next) => {
     from "products"
    where "productId" = $1
   `;
-  const values = [`${productId}`];
+  const values = [productId];
 
   if (productId <= 0) {
     return res.status(400).json({ error: 'productId must be a positive integer' });
@@ -174,8 +174,8 @@ app.post('/api/orders', (req, res, next) => {
 
     db.query(sql, values)
       .then(response => {
-        res.status(201).json(response.rows[0]);
         delete req.session.cartId;
+        res.status(201).json(response.rows[0]);
       })
       .catch(err => next(err));
   }

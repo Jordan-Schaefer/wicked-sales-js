@@ -9,13 +9,13 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      cart: [],
       message: null,
       isLoading: true,
       view: {
         name: 'catalog',
         params: {}
-      },
-      cart: []
+      }
     };
     this.setView = this.setView.bind(this);
     this.addToCart = this.addToCart.bind(this);
@@ -51,10 +51,13 @@ export default class App extends React.Component {
     fetch(`/api/cart/${product}`, { method: 'POST' })
       .then(res => res.json())
       .then(item => {
-        const cartItems = this.state.cart;
-        const items = [...cartItems];
-        items.push(item);
-        this.setState({ cart: items });
+        if (this.state.cart.empty) {
+          this.setState({ cart: [item] });
+        } else {
+          const cartItems = this.state.cart.slice();
+          cartItems.push(item);
+          this.setState({ cart: cartItems });
+        }
       })
       .catch(err => console.error(err))
       .finally(() => this.setView('catalog', {}));
@@ -79,7 +82,10 @@ export default class App extends React.Component {
   }
 
   render() {
-    const itemCount = this.state.cart.length;
+    let itemCount = this.state.cart.length;
+    if (this.state.cart.empty) {
+      itemCount = 0;
+    }
     if (this.state.view.name === 'catalog') {
       return (
         <>
@@ -123,7 +129,6 @@ export default class App extends React.Component {
             placeOrder={this.placeOrder}
             view={this.setView}/>
         </>
-
       );
     }
   }
