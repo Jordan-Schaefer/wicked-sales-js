@@ -17,8 +17,8 @@ class CartSummaryItem extends React.Component {
   render() {
     return (
       <>
-        <div className='container'>
-          <div key={this.props.item.cartItemId} className='card d-flex flex-row align-items-center m-3'>
+        <div>
+          <div key={this.props.item.cartItemId} className='card d-flex flex-column align-items-center m-3'>
             <div className=''>
               <img src={this.props.item.image} alt={this.props.item.name} className='img-thumbnail img-thumb'/>
             </div>
