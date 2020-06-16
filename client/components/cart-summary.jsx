@@ -27,7 +27,7 @@ class CartSummary extends React.Component {
   }
 
   render() {
-    if (this.props.items.empty) {
+    if (this.props.items.empty || this.props.items.length === 0) {
       return (
         <>
           <div className='container'>
