@@ -39,7 +39,7 @@ class CheckoutForm extends React.Component {
         <form
           className='container mt-3'
           onSubmit={() => this.props.placeOrder(this.state, event)}>
-          <a onClick={() => this.props.view('catalog', {})} href="">&#60; Bact to catalog</a>
+          <a onClick={() => this.props.view('catalog', {})} href="">&#60; Back to catalog</a>
           <div className='form-group'>
             <label htmlFor="name">Name</label>
             <input
