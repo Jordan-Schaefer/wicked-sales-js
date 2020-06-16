@@ -49,7 +49,8 @@ class CheckoutForm extends React.Component {
               type="text"
               name='name'
               placeholder='first name - last name'
-              className='form-control'/>
+              className='form-control'
+              required/>
           </div>
           <div className='form-group'>
             <label htmlFor="creditCard">Credit Card Number</label>
@@ -60,7 +61,8 @@ class CheckoutForm extends React.Component {
               type="text"
               name="creditCard"
               placeholder='card number'
-              className='form-control'/>
+              className='form-control'
+              required/>
           </div>
           <div className='form-group'>
             <label htmlFor="address">Address</label>
@@ -72,7 +74,8 @@ class CheckoutForm extends React.Component {
               cols="20"
               rows="10"
               placeholder='address'
-              className='form-control'></textarea>
+              className='form-control'
+              required></textarea>
           </div>
           <div>
             <button className='btn btn-success'>Submit</button>

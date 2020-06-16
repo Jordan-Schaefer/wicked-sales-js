@@ -43,12 +43,13 @@ class CartSummary extends React.Component {
             <a onClick={() => this.props.view('catalog', {})} href="">&#60; Bact to catalog</a>
             <h4>My cart</h4>
           </div>
-          {
-            this.props.items.map(item => {
-              return <CartSummaryItem key={item.cartItemId} item={item} />;
-            })
-          }
-
+          <div className='container'>
+            {
+              this.props.items.map(item => {
+                return <CartSummaryItem key={item.cartItemId} item={item} />;
+              })
+            }
+          </div>
           <div className='container'>
             <button className='btn btn-success' onClick={() => this.props.view('checkout', {})}>Check out</button>
             <h2>Item total ${this.getTotal()}</h2>
