@@ -31,7 +31,7 @@ class CartSummary extends React.Component {
       return (
         <>
           <div className='container'>
-            <a onClick={() => this.props.view('catalog', {})} href="">&#60; Bact to catalog</a>
+            <a onClick={() => this.props.view('catalog', {})} href="">&#60; Back to catalog</a>
             <h1>There are no items in your cart</h1>
           </div>
         </>
@@ -40,7 +40,7 @@ class CartSummary extends React.Component {
       return (
         <>
           <div className='container'>
-            <a onClick={() => this.props.view('catalog', {})} href="">&#60; Bact to catalog</a>
+            <a onClick={() => this.props.view('catalog', {})} href="">&#60; Back to catalog</a>
             <h4>My cart</h4>
           </div>
           <div className='container'>
